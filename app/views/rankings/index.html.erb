@@ -1,0 +1,36 @@
+<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+  <h2 class="text-2xl font-semibold text-gray-900">Classement</h2>
+
+  <div class="mt-6 overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-200">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="px-4 py-2 text-left">Équipe</th>
+          <th class="px-4 py-2 text-left">MJ</th>
+          <th class="px-4 py-2 text-left">G</th>
+          <th class="px-4 py-2 text-left">N</th>
+          <th class="px-4 py-2 text-left">P</th>
+          <th class="px-4 py-2 text-left">BP</th>
+          <th class="px-4 py-2 text-left">BC</th>
+          <th class="px-4 py-2 text-left">Diff.</th>
+          <th class="px-4 py-2 text-left font-bold text-blue-600">Pts</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @rankings.each do |row| %>
+          <tr class="border-t border-gray-200">
+            <td class="px-4 py-2"><%= row[:team].name %></td>
+            <td class="px-4 py-2"><%= row[:played] %></td>
+            <td class="px-4 py-2"><%= row[:wins] %></td>
+            <td class="px-4 py-2"><%= row[:draws] %></td>
+            <td class="px-4 py-2"><%= row[:losses] %></td>
+            <td class="px-4 py-2"><%= row[:goals_for] %></td>
+            <td class="px-4 py-2"><%= row[:goals_against] %></td>
+            <td class="px-4 py-2"><%= row[:goal_difference] %></td>
+            <td class="px-4 py-2 font-bold text-blue-600"><%= row[:points] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

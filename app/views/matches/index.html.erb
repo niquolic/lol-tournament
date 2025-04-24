@@ -1,0 +1,34 @@
+<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+  <h2 class="text-2xl font-semibold text-gray-900">Liste des matchs</h2>
+
+  <div class="mt-6">
+    <table class="min-w-full bg-white">
+      <thead>
+        <tr>
+          <th class="px-4 py-2 text-left">Date</th>
+          <th class="px-4 py-2 text-left">Équipes</th>
+          <th class="px-4 py-2 text-left">Résultat</th>
+          <th class="px-4 py-2 text-left">Détails</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @matches.each do |match| %> <!-- Assure-toi que la boucle each est correctement ouverte -->
+          <tr class="border-t border-gray-200">
+            <td class="px-4 py-2"><%= match.date.strftime("%d %B %Y") %></td>
+            <td class="px-4 py-2"><%= match.home_team.name %> vs <%= match.away_team.name %></td>
+            <td class="px-4 py-2">
+              <% if match.result.present? %>
+                <%= match.result.home_team_score %> - <%= match.result.away_team_score %>
+              <% else %>
+                <%= "Résultat non disponible" %> <!-- Message alternatif -->
+              <% end %>
+            </td>
+            <td class="px-4 py-2">
+              <%= link_to 'Voir les détails', match_path(match), class: "text-blue-600 hover:text-blue-800" %>
+            </td>
+          </tr>
+        <% end %> <!-- Assure-toi que la boucle each est correctement fermée -->
+      </tbody>
+    </table>
+  </div>
+</div>

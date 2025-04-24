@@ -1,0 +1,27 @@
+<%= content_for :title, "Modifier Joueur" %>
+
+<div class="max-w-2xl mx-auto py-8">
+  <h1 class="text-3xl font-bold text-gray-900 mb-6">Modifier le joueur</h1>
+
+  <%= form_with(model: @player, local: true) do |form| %>
+    <div class="mb-4">
+      <%= form.label :first_name, "Prénom", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_field :first_name, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :last_name, "Nom", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_field :last_name, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :role, "Rôle", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.select :role, ['Top laner', 'Jungler', 'Mid laner', 'ADC', 'Support'], {}, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm" %>
+    </div>
+
+    <div class="flex justify-between items-center mt-6">
+      <%= form.submit "Mettre à jour", class: "bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" %>
+      <%= link_to "Annuler", team_path(@player.team), class: "text-gray-600 hover:underline" %>
+    </div>
+  <% end %>
+</div>

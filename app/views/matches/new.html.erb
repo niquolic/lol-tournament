@@ -1,0 +1,44 @@
+<% if @match.errors.any? %>
+  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+    <ul>
+      <% @match.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_with model: @match, local: true, class: "max-w-xl mx-auto" do |form| %>
+  <div class="mb-4">
+    <%= form.label :date, "Date du match", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.datetime_local_field :date, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+    <% if @match.errors[:date].any? %>
+      <div class="text-red-600 text-sm">
+        <%= @match.errors[:date].first %>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class="mb-4">
+    <%= form.label :home_team_id, "Équipe à domicile", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.collection_select :home_team_id, @teams, :id, :name, prompt: "Sélectionnez une équipe", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+  </div>
+  
+  <div class="mb-4">
+    <%= form.label :away_team_id, "Équipe extérieure", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.collection_select :away_team_id, @teams, :id, :name, prompt: "Sélectionnez une équipe", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :home_team_score, "Score de l'équipe à domicile", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.number_field :home_team_score, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm", disabled: @match.date.present? && @match.date.future? %>
+  </div>
+  
+  <div class="mb-4">
+    <%= form.label :away_team_score, "Score de l'équipe extérieure", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.number_field :away_team_score, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm", disabled: @match.date.present? && @match.date.future? %>
+  </div>
+
+  <div class="flex items-center justify-between">
+    <%= form.submit "Créer le match", class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
+  </div>
+<% end %>

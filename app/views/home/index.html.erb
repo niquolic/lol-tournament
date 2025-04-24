@@ -1,0 +1,30 @@
+<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+  <h2 class="text-2xl font-semibold text-gray-900">Les 5 derniers matchs ajoutés</h2>
+
+  <div class="mt-6">
+    <table class="min-w-full bg-white">
+      <thead>
+        <tr>
+          <th class="px-4 py-2 text-left">Date</th>
+          <th class="px-4 py-2 text-left">Équipes</th>
+          <th class="px-4 py-2 text-left">Résultat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @last_matches.each do |match| %>
+          <tr class="border-t border-gray-200">
+            <td class="px-4 py-2"><%= match.date.strftime("%d %B %Y, %H:%M") %></td>
+            <td class="px-4 py-2"><%= match.home_team.name %> vs <%= match.away_team.name %></td>
+            <td class="px-4 py-2">
+              <% if match.result.present? %>
+                <%= match.result.home_team_score %> - <%= match.result.away_team_score %>
+              <% else %>
+                <%= "Résultat non disponible" %>  <!-- Message alternatif si pas de résultat -->
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

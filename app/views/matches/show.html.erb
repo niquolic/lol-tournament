@@ -1,0 +1,42 @@
+<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+  <h2 class="text-2xl font-semibold text-gray-900">Détails du match : <%= @match.home_team.name %> vs <%= @match.away_team.name  %></h2>
+
+  <div class="mt-6">
+    <table class="min-w-full bg-white">
+      <thead>
+        <tr>
+          <th class="px-4 py-2 text-left">Attribut</th>
+          <th class="px-4 py-2 text-left">Valeur</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-t border-gray-200">
+          <td class="px-4 py-2 font-medium">Date</td>
+          <td class="px-4 py-2"><%= @match.date.strftime("%d %B %Y à %H:%M") %></td>
+        </tr>
+        <tr class="border-t border-gray-200">
+          <td class="px-4 py-2 font-medium">Équipes</td>
+          <td class="px-4 py-2"><%= @match.home_team.name %> vs <%= @match.away_team.name %></td>
+        </tr>
+        <tr class="border-t border-gray-200">
+          <td class="px-4 py-2 font-medium">Résultat</td>
+          <td class="px-4 py-2">
+            <% if @match.result.present? %>
+              <%= @match.result.home_team_score %> - <%= @match.result.away_team_score %>
+            <% else %>
+              <%= "Résultat non disponible" %>  <!-- Message alternatif si pas de résultat -->
+            <% end %>
+          </td>
+        </tr>
+        <tr class="border-t border-gray-200">
+          <td class="px-4 py-2 font-medium">Date de création</td>
+          <td class="px-4 py-2"><%= @match.created_at.strftime("%d %B %Y") %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-6">
+    <%= link_to 'Retour à la liste des matchs', matches_path, class: "bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" %>
+  </div>
+</div>

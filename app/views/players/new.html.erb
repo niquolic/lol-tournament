@@ -1,0 +1,20 @@
+<%= form_with model: [@team, @player], local: true, class: "max-w-xl mx-auto" do |form| %>
+  <div class="mb-4">
+    <%= form.label :first_name, "Prénom", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :first_name, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+  </div>
+  
+  <div class="mb-4">
+    <%= form.label :last_name, "Nom", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :last_name, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+  </div>
+  
+  <div class="mb-4">
+    <%= form.label :role, "Rôle", class: "block text-gray-700 font-bold mb-2" %>
+    <%= form.select :role, Player::VALID_ROLES, {}, class: "block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+  </div>
+
+  <div class="flex items-center justify-between">
+    <%= form.submit "Ajouter le joueur", class: "px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700" %>
+  </div>
+<% end %>
