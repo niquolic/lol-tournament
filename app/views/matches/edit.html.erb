@@ -1,0 +1,53 @@
+<h1 class="text-3xl font-semibold text-gray-900 mb-6">Modifier le match</h1>
+
+<%= form_with model: @match, local: true, class: "space-y-6" do |form| %>
+  <% if @match.errors.any? %>
+    <div class="bg-red-100 border border-red-300 text-red-700 p-4 rounded-md">
+      <ul class="list-disc pl-5">
+        <% (@match.errors.full_messages + @result.errors.full_messages).each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <div class="form-group">
+      <%= form.label :home_team_id, "Équipe à domicile", class: "block text-gray-700 font-medium" %>
+      <%= form.collection_select :home_team_id, Team.all, :id, :name, { prompt: "Choisir l'équipe à domicile" }, class: "block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :away_team_id, "Équipe extérieure", class: "block text-gray-700 font-medium" %>
+      <%= form.collection_select :away_team_id, Team.all, :id, :name, { prompt: "Choisir l'équipe extérieure" }, class: "block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :date, "Date et heure du match", class: "block text-gray-700 font-medium" %>
+    <%= form.datetime_local_field :date, class: "block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+  </div>
+
+  <h3 class="text-xl font-semibold text-gray-800 mt-6">Score</h3>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
+    <div class="form-group">
+      <%= form.fields_for :result, @result do |result_form| %>
+        <%= result_form.label :home_team_score, "Score de l'équipe à domicile", class: "block text-gray-700 font-medium" %>
+        <%= result_form.number_field :home_team_score, class: "block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= form.fields_for :result, @result do |result_form| %>
+        <%= result_form.label :away_team_score, "Score de l'équipe extérieure", class: "block text-gray-700 font-medium" %>
+        <%= result_form.number_field :away_team_score, class: "block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit "Mettre à jour le match", class: "btn btn-primary" %>
+  </div>
+
+<% end %>

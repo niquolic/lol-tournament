@@ -1,4 +1,6 @@
 class MatchesController < ApplicationController
+  before_action :authenticate_admin!, only: [:create, :edit, :update]
+
   def index
     @matches = Match.order(date: :desc)
   end
@@ -32,7 +34,14 @@ class MatchesController < ApplicationController
 
   def update
     @match = Match.find(params[:id])
-    if @match.update(match_params)
+    @result = @match.result || @match.build_result
+
+    result_params = {
+      home_team_score: params[:match][:home_team_score],
+      away_team_score: params[:match][:away_team_score]
+    }
+
+    if @result.update(result_params) && @match.update(match_params)
       redirect_to matches_path, notice: "Match mis à jour."
     else
       render :edit
@@ -49,5 +58,11 @@ class MatchesController < ApplicationController
 
   def match_params
     params.require(:match).permit(:date, :home_team_id, :away_team_id)
+  end
+
+  def authenticate_admin!
+    unless session[:admin_user_id]
+      redirect_to root_path, alert: "Accès réservé aux administrateurs."
+    end
   end
 end

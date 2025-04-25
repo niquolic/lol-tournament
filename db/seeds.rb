@@ -1,14 +1,14 @@
 # Création des équipes
-team1 = Team.create!(name: "Team Alpha")
-team2 = Team.create!(name: "Team Beta")
-team3 = Team.create!(name: "Team Gamma") # Équipe sans joueurs
+team1 = Team.create!(name: "Team Zizou")
+team2 = Team.create!(name: "Team Fraude")
+team3 = Team.create!(name: "Team Pas inspi") # Équipe sans joueurs
 
 # Création des joueurs pour Team Alpha
 5.times do |i|
   Player.create!(
     first_name: "AlphaPlayer#{i + 1}",
     last_name: "LastName#{i + 1}",
-    role: ["Top", "Jungle", "Mid", "ADC", "Support"][i],
+    role: ["Top laner", "Jungler", "Mid laner", "ADC", "Support"][i],
     team: team1
   )
 end
@@ -18,7 +18,7 @@ end
   Player.create!(
     first_name: "BetaPlayer#{i + 1}",
     last_name: "LastName#{i + 1}",
-    role: ["Top", "Jungle", "Mid", "ADC", "Support"][i],
+    role: ["Top laner", "Jungler", "Mid laner", "ADC", "Support"][i],
     team: team2
   )
 end
@@ -48,4 +48,10 @@ Match.create!(
   date: 3.weeks.from_now,
   home_team: team1,
   away_team: team2
+)
+
+# Création d'un compte admin
+AdminUser.create!(
+  email: "admin@example.com",
+  password: "password"
 )

@@ -1,17 +1,21 @@
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
   <h2 class="text-2xl font-semibold text-gray-900">Toutes les équipes</h2>
 
-  <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-    <% @teams.each do |team| %>
-      <div class="bg-white shadow-md rounded-lg overflow-hidden">
-        <div class="px-4 py-5 sm:px-6">
-          <h3 class="text-lg font-semibold text-gray-900"><%= team.name %></h3>
-          <%= link_to 'Modifier', edit_team_path(team), class: "text-blue-500 mt-4 block" %>
-          <%= link_to 'Voir les détails', team_path(team), class: "text-blue-500 mt-2 block" %>
+  <% if @teams.any? %>
+    <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <% @teams.each do |team| %>
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+          <div class="px-4 py-5 sm:px-6">
+            <h3 class="text-lg font-semibold text-gray-900"><%= team.name %></h3>
+            <%= link_to 'Modifier', edit_team_path(team), class: "text-blue-500 mt-4 block" %>
+            <%= link_to 'Voir les détails', team_path(team), class: "text-blue-500 mt-2 block" %>
+          </div>
         </div>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="mt-6 text-gray-500">Aucune équipe créée pour le moment.</p>
+  <% end %>
 
   <%= link_to 'Ajouter une équipe', new_team_path, class: "mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" %>
 </div>

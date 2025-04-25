@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>League of Legends Teams</title>
-    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
   <%= stylesheet_link_tag "application", media: "all" %>
-  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true  %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  <%= javascript_include_tag "application", type: "module" %>
+  <%= csrf_meta_tags %>
 </head>
 <body class="bg-gray-100">
 
@@ -24,6 +26,18 @@
               <%= link_to "Joueurs", players_path, class: "text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700" %>
               <%= link_to "Matchs", matches_path, class: "text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700" %>
               <%= link_to "Classement", ranking_path, class: "text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700" %>
+              <% if admin_signed_in? %>
+                <%= form_with url: logout_path, method: :delete, class: "inline" do %>
+                  <button type="submit" class="text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700">
+                    Déconnexion
+                  </button>
+                <% end %>
+                <p class="text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700">
+                  Connecté en tant que <%= current_admin_user.email %>
+                </p>
+              <% else %>
+                <%= link_to "Connexion admin", new_session_path, class: "text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 bg-blue-100 hover:bg-blue-200" %>
+              <% end %>
             </div>
           </div>
         </div>

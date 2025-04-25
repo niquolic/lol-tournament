@@ -2,33 +2,43 @@
   <h2 class="text-2xl font-semibold text-gray-900">Liste des matchs</h2>
 
   <div class="mt-6">
-    <table class="min-w-full bg-white">
-      <thead>
-        <tr>
-          <th class="px-4 py-2 text-left">Date</th>
-          <th class="px-4 py-2 text-left">Équipes</th>
-          <th class="px-4 py-2 text-left">Résultat</th>
-          <th class="px-4 py-2 text-left">Détails</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @matches.each do |match| %> <!-- Assure-toi que la boucle each est correctement ouverte -->
-          <tr class="border-t border-gray-200">
-            <td class="px-4 py-2"><%= match.date.strftime("%d %B %Y") %></td>
-            <td class="px-4 py-2"><%= match.home_team.name %> vs <%= match.away_team.name %></td>
-            <td class="px-4 py-2">
-              <% if match.result.present? %>
-                <%= match.result.home_team_score %> - <%= match.result.away_team_score %>
-              <% else %>
-                <%= "Résultat non disponible" %> <!-- Message alternatif -->
-              <% end %>
-            </td>
-            <td class="px-4 py-2">
-              <%= link_to 'Voir les détails', match_path(match), class: "text-blue-600 hover:text-blue-800" %>
-            </td>
+    <% if @matches.any? %>
+      <table class="min-w-full bg-white">
+        <thead>
+          <tr>
+            <th class="px-4 py-2 text-left">Date</th>
+            <th class="px-4 py-2 text-left">Équipes</th>
+            <th class="px-4 py-2 text-left">Résultat</th>
+            <th class="px-4 py-2 text-left">Actions</th>
           </tr>
-        <% end %> <!-- Assure-toi que la boucle each est correctement fermée -->
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @matches.each do |match| %>
+            <tr class="border-t border-gray-200">
+              <td class="px-4 py-2"><%= match.date.strftime("%d %B %Y") %></td>
+              <td class="px-4 py-2"><%= match.home_team.name %> vs <%= match.away_team.name %></td>
+              <td class="px-4 py-2">
+                <% if match.result.present? %>
+                  <%= match.result.home_team_score %> - <%= match.result.away_team_score %>
+                <% else %>
+                  <%= "Résultat non disponible" %>
+                <% end %>
+              </td>
+              <td class="px-4 py-2">
+                <%= link_to 'Voir les détails', match_path(match), class: "text-blue-600 hover:text-blue-800" %>
+                <% if session[:admin_user_id].present? %>
+                  <%= link_to "Modifier", edit_match_path(match), class: "text-blue-500 hover:underline" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="text-gray-700">Aucun match créé pour le moment.</p>
+    <% end %>
+    <% if session[:admin_user_id].present? %>
+      <%= link_to 'Ajouter un match', new_match_path, class: "mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" %>
+    <% end %>
   </div>
 </div>
